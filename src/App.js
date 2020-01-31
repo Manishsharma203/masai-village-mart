@@ -13,6 +13,8 @@ import Cart from './components/Cart';
 import Login from './components/Login';
 import SortedFruits from './components/SortedFruits';
 import SortedVegis from './components/SortedVegis';
+import Error from './components/Error'
+import LoginTrue from './components/LoginTrue'
 
 class App extends React.Component{
   constructor(props){
@@ -98,22 +100,29 @@ render(){
 
         <Switch>
           <Route exact path='/' render={()=><Home/>} />
-          <Route path='/about' render={()=><About/>} />
-          <Route path='/shop' render={()=><Shop/>} />
-          <Route path='/fruits/:orderBy(asc|desc)' render={(props)=><SortedFruits sortF={this.state.fruits} {...props}/>}/>
-          <Route path='/vegetables/:orderBy(asc|desc)' render={(props)=><SortedVegis sortV={this.state.vegis} {...props}/>}/>
-          <Route path='/fruits/fruitsinfo/:id' render={(props)=><Product parentCallback1={this.callback1} datas={this.state.fruits.filter(e=> e.id==props.match.params.id)} {...props}/>}/>
-          <Route path='/vegetables/vegetablesinfo/:id' render={(props)=><Product2 parentCallback2={this.callback2} datas={this.state.vegis.filter(e=> e.id==props.match.params.id)}/>}/>
-          <Route path='/fruits' render={(props)=><Fruits data1={this.state.fruits} {...props}/>} />
-          <Route path='/vegetables' render={()=><Vegetables data2={this.state.vegis} />} />
-          <Route path='/shoppingcart' 
+          <Route exact path='/about' render={()=><About/>} />
+          <Route exact path='/shop' render={()=><Shop/>} />
+          <Route exact path='/fruits/:orderBy(asc|desc)' render={(props)=><SortedFruits sortF={this.state.fruits} {...props}/>}/>
+          <Route exact path='/vegetables/:orderBy(asc|desc)' render={(props)=><SortedVegis sortV={this.state.vegis} {...props}/>}/>
+          <Route exact path='/fruits/fruitsinfo/:id' render={(props)=><Product parentCallback1={this.callback1} datas={this.state.fruits.filter(e=> e.id==props.match.params.id)} {...props}/>}/>
+          <Route exact path='/vegetables/vegetablesinfo/:id' render={(props)=><Product2 parentCallback2={this.callback2} datas={this.state.vegis.filter(e=> e.id==props.match.params.id)}/>}/>
+          <Route exact path='/fruits' render={(props)=><Fruits data1={this.state.fruits} {...props}/>} />
+          <Route exact path='/vegetables' render={()=><Vegetables data2={this.state.vegis} />} />
+          <Route exact path='/shoppingcart' 
                 render={()=>
                 (this.state.creds==true ?
                   <Cart cartData={this.state}/>:
                   <Redirect to={{pathname:"/login"}}/>
                   )
                 }/>
-          <Route path='/login' render={()=><Login loginCallback={this.loginCall}/>}/>
+          <Route exact path='/login' 
+                render={(props)=>
+                  (this.state.creds==false ?
+                  <Login loginCallback={this.loginCall} {...props}/>:
+                  <LoginTrue/>
+                  )
+                  }/>
+          <Route render={()=><Error/>}/>
         </Switch>
 
         <div className='bg-dark text-white d-flex py-4' style={{fontSize:'12px'}}>

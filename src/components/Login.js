@@ -1,5 +1,6 @@
 import React from 'react'
 import {Container,Typography, TextField, Box} from '@material-ui/core/'
+import Redirect from 'react-router-dom'
 
 class Login extends React.Component{
     constructor(props){
@@ -18,7 +19,8 @@ class Login extends React.Component{
         if(this.state.username=='masai' && this.state.password==1234){
             e.preventDefault()
             this.props.loginCallback(true)
-            alert('Login Successfull !! You can go to Cart now')
+            // alert('Login Successfull !! You can go to Cart now')
+            this.props.history.push('/shoppingcart')
         }
         else{
             alert('Login Unsuccessfull !! Please Try Username:masai, Password:1234')
@@ -26,6 +28,7 @@ class Login extends React.Component{
     }
 
     render(){
+        console.log(this.props)
         return(
             <div className='my-4'>
                 <Container maxWidth="sm" className='shadow'>

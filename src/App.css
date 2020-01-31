@@ -36,3 +36,15 @@
     transform: rotate(360deg);
   }
 }
+
+.vm-span{
+  font-size: 40px;
+  font-family: 'Black Ops One';
+}
+
+@media (max-width:577px){
+.vm-span{
+    font-size: 20px;
+    font-family: 'Black Ops One';
+  }
+}
